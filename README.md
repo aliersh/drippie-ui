@@ -1,8 +1,5 @@
-# React + Vite
+# Drippie UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Drippie UI is a user interface designed to interact with the Drippie Ethereum smart contract. Drippie allows users to configure and trigger actions based on specific preconditions, managing these configurations through a process known as "dripping." This system is primarily used to manage Ethereum account balances safely, reducing the risk of large balance thefts due to account compromises.
