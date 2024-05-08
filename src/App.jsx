@@ -1,10 +1,11 @@
-function App() {
-  
+import CreateDripButton from "./components/CreateDripButton";
 
+const App = () => {
   return (
     <>
+      <CreateDripButton />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
