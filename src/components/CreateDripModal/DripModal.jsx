@@ -9,8 +9,43 @@ import {
     Divider,
 } from "@nextui-org/react";
 import DripInput from "./DripInput";
+import { useState } from "react";
 
 const DripModal = ({ isOpen, onOpenChange }) => {
+    const [dripName, setDripName] = useState("");
+    const [interval, setInterval] = useState("");
+    const [dripcheckAddress, setDripcheckAddress] = useState("");
+    const [dripcheckParameters, setDripcheckParameters] = useState("");
+    const [target, setTarget] = useState("");
+    const [data, setData] = useState("");
+    const [value, setValue] = useState("");
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const dripObject = {
+            [dripName]: {
+                status: 1,
+                last: 0,
+                count: 0,
+                config: {
+                    reentrant: false,
+                    interval: interval,
+                    dripcheck: dripcheckAddress,
+                    checkparams: dripcheckParameters,
+                    actions: [
+                        {
+                            target: target,
+                            data: data,
+                            value: value,
+                        },
+                    ],
+                },
+            },
+        };
+        console.log(dripObject);
+        onOpenChange(false);
+    };
+
     return (
         <Modal
             isOpen={isOpen}
@@ -19,31 +54,32 @@ const DripModal = ({ isOpen, onOpenChange }) => {
         >
             <ModalContent>
                 {(onClose) => (
-                    <>
+                    <form onSubmit={handleSubmit}>
                         <ModalHeader className="flex flex-col gap-1">
                             Create New Drip
                         </ModalHeader>
                         <ModalBody>
-                            <DripInput type="text" label="Drip Name" />
+                            <DripInput type="text" label="Drip Name" value={dripName} onChange={(event) => setDripName(event.target.value)} />
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Parameters
                             </h4>
-                            <DripInput type="number" label="Interval" />
-                            <DripInput type="text" label="Dripcheck Address" />
+                            <DripInput type="number" label="Interval" value={interval.toString()} onChange={(event) => setInterval(Number(event.target.value))} />
+                            <DripInput type="text" label="Dripcheck Address" value={dripcheckAddress} onChange={(event) => setDripcheckAddress(event.target.value)} />
                             <DripInput
                                 type="text"
                                 label="Dripcheck Parameters"
+                                value={dripcheckParameters} onChange={(event) => setDripcheckParameters(event.target.value)}
                             />
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Actions
                             </h4>
-                            <DripInput type="text" label="Target" />
-                            <DripInput type="text" label="Data" />
-                            <DripInput type="number" label="Value" />
+                            <DripInput type="text" label="Target" value={target} onChange={(event) => setTarget(event.target.value)} />
+                            <DripInput type="text" label="Data" value={data} onChange={(event) => setData(event.target.value)} />
+                            <DripInput type="number" label="Value" value={value.toString()} onChange={(event) => setValue(Number(event.target.value))} />
                         </ModalBody>
                         <ModalFooter>
                             <Button
@@ -53,11 +89,14 @@ const DripModal = ({ isOpen, onOpenChange }) => {
                             >
                                 Cancel
                             </Button>
-                            <Button color="primary" onPress={onClose}>
+                            <Button
+                                type="submit"
+                                color="primary"
+                            >
                                 Create
                             </Button>
                         </ModalFooter>
-                    </>
+                    </form>
                 )}
             </ModalContent>
         </Modal>
