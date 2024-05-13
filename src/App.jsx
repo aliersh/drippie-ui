@@ -1,5 +1,5 @@
 import { NextUIProvider } from "@nextui-org/react";
-import CreateDripModal from "./components/CreateDripModal/CreateDripModal";
+import CreateDripModal from "./components/Modal/CreateDripModal";
 
 const App = () => {
     return (
