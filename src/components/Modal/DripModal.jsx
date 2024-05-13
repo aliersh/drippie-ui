@@ -43,6 +43,17 @@ const DripModal = ({ isOpen, onOpenChange }) => {
             },
         };
         console.log(dripObject);
+
+        // Clear the form
+        setDripName("");
+        setInterval("");
+        setDripcheckAddress("");
+        setDripcheckParameters("");
+        setTarget("");
+        setData("");
+        setValue("");
+
+        //Close the modal
         onOpenChange(false);
     };
 
