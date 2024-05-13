@@ -23,23 +23,22 @@ const DripModal = ({ isOpen, onOpenChange }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const dripObject = {
-            [dripName]: {
-                status: 1,
-                last: 0,
-                count: 0,
-                config: {
-                    reentrant: false,
-                    interval: interval,
-                    dripcheck: dripcheckAddress,
-                    checkparams: dripcheckParameters,
-                    actions: [
-                        {
-                            target: target,
-                            data: data,
-                            value: value,
-                        },
-                    ],
-                },
+            dripName: dripName,
+            status: 1,
+            last: 0,
+            count: 0,
+            config: {
+                reentrant: false,
+                interval: interval,
+                dripcheck: dripcheckAddress,
+                checkparams: dripcheckParameters,
+                actions: [
+                    {
+                        target: target,
+                        data: data,
+                        value: value,
+                    },
+                ],
             },
         };
         console.log(dripObject);
@@ -70,27 +69,72 @@ const DripModal = ({ isOpen, onOpenChange }) => {
                             Create New Drip
                         </ModalHeader>
                         <ModalBody>
-                            <DripInput type="text" label="Drip Name" value={dripName} onChange={(event) => setDripName(event.target.value)} />
+                            <DripInput
+                                type="text"
+                                label="Drip Name"
+                                value={dripName}
+                                onChange={(event) =>
+                                    setDripName(event.target.value)
+                                }
+                            />
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Parameters
                             </h4>
-                            <DripInput type="number" label="Interval" value={interval.toString()} onChange={(event) => setInterval(Number(event.target.value))} />
-                            <DripInput type="text" label="Dripcheck Address" value={dripcheckAddress} onChange={(event) => setDripcheckAddress(event.target.value)} />
+                            <DripInput
+                                type="number"
+                                label="Interval"
+                                value={interval.toString()}
+                                onChange={(event) =>
+                                    setInterval(Number(event.target.value))
+                                }
+                            />
+                            <DripInput
+                                type="text"
+                                label="Dripcheck Address"
+                                value={dripcheckAddress}
+                                onChange={(event) =>
+                                    setDripcheckAddress(event.target.value)
+                                }
+                            />
                             <DripInput
                                 type="text"
                                 label="Dripcheck Parameters"
-                                value={dripcheckParameters} onChange={(event) => setDripcheckParameters(event.target.value)}
+                                value={dripcheckParameters}
+                                onChange={(event) =>
+                                    setDripcheckParameters(event.target.value)
+                                }
                             />
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Actions
                             </h4>
-                            <DripInput type="text" label="Target" value={target} onChange={(event) => setTarget(event.target.value)} />
-                            <DripInput type="text" label="Data" value={data} onChange={(event) => setData(event.target.value)} />
-                            <DripInput type="number" label="Value" value={value.toString()} onChange={(event) => setValue(Number(event.target.value))} />
+                            <DripInput
+                                type="text"
+                                label="Target"
+                                value={target}
+                                onChange={(event) =>
+                                    setTarget(event.target.value)
+                                }
+                            />
+                            <DripInput
+                                type="text"
+                                label="Data"
+                                value={data}
+                                onChange={(event) =>
+                                    setData(event.target.value)
+                                }
+                            />
+                            <DripInput
+                                type="number"
+                                label="Value"
+                                value={value.toString()}
+                                onChange={(event) =>
+                                    setValue(Number(event.target.value))
+                                }
+                            />
                         </ModalBody>
                         <ModalFooter>
                             <Button
@@ -100,10 +144,7 @@ const DripModal = ({ isOpen, onOpenChange }) => {
                             >
                                 Cancel
                             </Button>
-                            <Button
-                                type="submit"
-                                color="primary"
-                            >
+                            <Button type="submit" color="primary">
                                 Create
                             </Button>
                         </ModalFooter>
