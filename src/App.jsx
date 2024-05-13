@@ -1,10 +1,10 @@
 import { NextUIProvider } from "@nextui-org/react";
-import CreateDripModal from "./components/Modal/CreateDripModal";
+import DripNavbar from "./components/Navbar/DripNavbar";
 
 const App = () => {
     return (
         <NextUIProvider>
-            <CreateDripModal />
+            <DripNavbar />
         </NextUIProvider>
     );
 };
