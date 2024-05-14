@@ -23,24 +23,26 @@ const DripModal = ({ isOpen, onOpenChange }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const dripObject = {
-            dripName: dripName,
-            status: 1,
-            last: 0,
-            count: 0,
-            config: {
-                reentrant: false,
-                interval: interval,
-                dripcheck: dripcheckAddress,
-                checkparams: dripcheckParameters,
-                actions: [
-                    {
-                        target: target,
-                        data: data,
-                        value: value,
-                    },
-                ],
-            },
+            [dripName]: {
+                status: 1,
+                last: 0,
+                count: 0,
+                config: {
+                    reentrant: false,
+                    interval: interval,
+                    dripcheck: dripcheckAddress,
+                    checkparams: dripcheckParameters,
+                    actions: [
+                        {
+                            target: target,
+                            data: data,
+                            value: value,
+                        },
+                    ],
+                },
+            }
         };
+
         console.log(dripObject);
 
         // Clear the form

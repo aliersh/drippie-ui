@@ -1,38 +1,22 @@
-import PropTypes from "prop-types";
+const dripItem = ({ drip }) => {
+    const { status, last, count, config } = drip;
+    const { reentrant, interval, dripcheck, checkparams, actions } = config;
+    const { target, data, value } = actions[0];
 
-const DripItem = ({ drip }) => {
     return (
         <div>
-            <p>Last: {drip.last}</p>
-            <p>Count: {drip.count}</p>
-            <p>Interval: {drip.config.interval}</p>
-            <p>Dripcheck: {drip.config.dripcheck}</p>
-            <p>Checkparams: {drip.config.checkparams}</p>
-            <p>Target: {drip.config.actions[0].target}</p>
-            <p>Data: {drip.config.actions[0].data}</p>
-            <p>Value: {drip.config.actions[0].value}</p>
+            <p>Status: {status}</p>
+            <p>Last: {last}</p>
+            <p>Count: {count}</p>
+            <p>Reentrant: {reentrant.toString()}</p>
+            <p>Interval: {interval}</p>
+            <p>Dripcheck: {dripcheck}</p>
+            <p>Checkparams: {checkparams}</p>
+            <p>Target: {target}</p>
+            <p>Data: {data}</p>
+            <p>Value: {value}</p>
         </div>
     );
 };
 
-DripItem.propTypes = {
-    drip: PropTypes.shape({
-        dripname: PropTypes.string.isRequired,
-        last: PropTypes.number.isRequired,
-        count: PropTypes.number.isRequired,
-        config: PropTypes.shape({
-            interval: PropTypes.number.isRequired,
-            dripcheck: PropTypes.string.isRequired,
-            checkparams: PropTypes.string.isRequired,
-            actions: PropTypes.arrayOf(
-                PropTypes.shape({
-                    target: PropTypes.string.isRequired,
-                    data: PropTypes.string.isRequired,
-                    value: PropTypes.number.isRequired,
-                })
-            ).isRequired,
-        }).isRequired,
-    }).isRequired,
-};
-
-export default DripItem;
+export default dripItem;
