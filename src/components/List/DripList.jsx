@@ -1,9 +1,10 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import DripItem from "./DripItem";
 
 const DripList = () => {
     const drips = [
         {
-            dripName: "First Drip",
+            dripname: "First Drip",
             status: 1,
             last: 0,
             count: 0,
@@ -22,7 +23,7 @@ const DripList = () => {
             },
         },
         {
-            dripName: "Second Drip",
+            dripname: "Second Drip",
             status: 1,
             last: 0,
             count: 0,
@@ -41,7 +42,7 @@ const DripList = () => {
             },
         },
         {
-            dripName: "Third Drip",
+            dripname: "Third Drip",
             status: 0,
             last: 0,
             count: 0,
@@ -64,17 +65,8 @@ const DripList = () => {
     return (
         <Accordion>
             {drips.map((drip, index) => (
-                <AccordionItem key={index} title={drip.dripName}>
-                    <div>
-                        <p>Last: {drip.last}</p>
-                        <p>Count: {drip.count}</p>
-                        <p>Interval: {drip.config.interval}</p>
-                        <p>Dripcheck: {drip.config.dripcheck}</p>
-                        <p>Checkparams: {drip.config.checkparams}</p>
-                        <p>Target: {drip.config.actions[0].target}</p>
-                        <p>Data: {drip.config.actions[0].data}</p>
-                        <p>Value: {drip.config.actions[0].value}</p>
-                    </div>
+                <AccordionItem key={index} title={drip.dripname}>
+                    <DripItem drip={drip} />
                 </AccordionItem>
             ))}
         </Accordion>
