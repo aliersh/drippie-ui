@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 
-const DripContext = createContext();
+export const DripContext = createContext();
 
 const DripProvider = ({ children }) => {
     const [drips, setDrips] = useState([]);
