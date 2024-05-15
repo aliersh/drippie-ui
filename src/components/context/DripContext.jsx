@@ -10,7 +10,7 @@ const DripProvider = ({ children }) => {
         setDrips(prevDrips => [...prevDrips, drip]);
     };
 
-    const toogleDripStatus = (dripName, newStatus) => {
+    const toggleDripStatus = (dripName, newStatus) => {
             setDrips(prevDrips =>  prevDrips.map(drip => {
                 if (Object.keys(drip)[0] === dripName) {
                     return {
@@ -27,7 +27,7 @@ const DripProvider = ({ children }) => {
         }
 
         return (
-        <DripContext.Provider value={{ drips, addDrip, toogleDripStatus }}>
+        <DripContext.Provider value={{ drips, addDrip, toggleDripStatus }}>
             {children}
         </DripContext.Provider>
     );
