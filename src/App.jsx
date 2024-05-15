@@ -1,7 +1,7 @@
 import { NextUIProvider } from "@nextui-org/react";
 import DripProvider from "./components/context/DripContext";
 import DripNavbar from "./components/navbar/DripNavbar";
-import DripList from "./components/List/DripList";
+import DripList from "./components/list/DripList";
 
 const App = () => {
     return (
