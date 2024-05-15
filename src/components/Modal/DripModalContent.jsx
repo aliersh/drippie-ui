@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useDrip } from "../context/useDrip";
 import PropTypes from "prop-types";
 import {
     Modal,
@@ -9,7 +11,6 @@ import {
     Divider,
 } from "@nextui-org/react";
 import DripInput from "./DripInput";
-import { useState } from "react";
 
 const DripModalContent = ({ isOpen, onOpenChange }) => {
     const [dripName, setDripName] = useState("");
@@ -19,6 +20,8 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
     const [target, setTarget] = useState("");
     const [data, setData] = useState("");
     const [value, setValue] = useState("");
+
+    const { addDrip } = useDrip();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -43,7 +46,7 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
             },
         };
 
-        console.log(dripObject);
+        addDrip(dripObject);
 
         // Clear the form
         setDripName("");
