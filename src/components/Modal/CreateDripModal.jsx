@@ -1,6 +1,6 @@
 import { useDisclosure } from "@nextui-org/react";
 import CreateDripButton from "./CreateDripButton";
-import DripModal from "./DripModal";
+import DripModalContent from "./DripModalContent";
 
 const CreateDripModal = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -8,7 +8,7 @@ const CreateDripModal = () => {
     return (
         <>
             <CreateDripButton onOpen={onOpen} />
-            <DripModal isOpen={isOpen} onOpenChange={onOpenChange} />
+            <DripModalContent isOpen={isOpen} onOpenChange={onOpenChange} />
         </>
     );
 };

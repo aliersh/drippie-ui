@@ -11,7 +11,7 @@ import {
 import DripInput from "./DripInput";
 import { useState } from "react";
 
-const DripModal = ({ isOpen, onOpenChange }) => {
+const DripModalContent = ({ isOpen, onOpenChange }) => {
     const [dripName, setDripName] = useState("");
     const [interval, setInterval] = useState("");
     const [dripcheckAddress, setDripcheckAddress] = useState("");
@@ -40,7 +40,7 @@ const DripModal = ({ isOpen, onOpenChange }) => {
                         },
                     ],
                 },
-            }
+            },
         };
 
         console.log(dripObject);
@@ -157,9 +157,9 @@ const DripModal = ({ isOpen, onOpenChange }) => {
     );
 };
 
-DripModal.propTypes = {
+DripModalContent.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onOpenChange: PropTypes.func.isRequired,
 };
 
-export default DripModal;
+export default DripModalContent;
