@@ -34,6 +34,7 @@ const DripList = () => {
                                         onPress={() => archiveDrip(dripName)}
                                         className="min-w-0 h-8"
                                         color="danger"
+                                        isDisabled={isSelected}
                                         startContent={
                                             <TrashIcon className="h-4 w-4" />
                                         }
