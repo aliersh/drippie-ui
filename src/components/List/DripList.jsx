@@ -4,7 +4,7 @@ import { Switch } from "@nextui-org/react";
 import DripItem from "./DripItem";
 
 const DripList = () => {
-    const { drips, toggleDripStatus } = useDrip();
+    const { drips, toggleDrip } = useDrip();
 
     return (
         <Accordion>
@@ -18,10 +18,11 @@ const DripList = () => {
                         title={
                             <div className="flex justify-between">
                                 <span>{dripName}</span>
-                                <Switch 
+                                <Switch
                                     isSelected={isSelected}
                                     onChange={() => {
-                                        toggleDripStatus(dripName, isSelected ? 1 : 2);
+                                        const newStatus = isSelected ? 1 : 2;
+                                        toggleDrip(dripName, newStatus);
                                     }}
                                 />
                             </div>
