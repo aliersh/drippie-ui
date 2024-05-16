@@ -7,27 +7,38 @@ const DripProvider = ({ children }) => {
     const [drips, setDrips] = useState([]);
 
     const addDrip = (drip) => {
-        setDrips(prevDrips => [...prevDrips, drip]);
+        setDrips((prevDrips) => [...prevDrips, drip]);
     };
 
-    const toggleDripStatus = (dripName, newStatus) => {
-            setDrips(prevDrips =>  prevDrips.map(drip => {
+    const toggleDrip = (dripName, newStatus) => {
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+
+        setDrips((prevDrips) => {
+            return prevDrips.map((drip) => {
                 if (Object.keys(drip)[0] === dripName) {
+                    const updatedDrip = {
+                        ...drip[dripName],
+                        status: newStatus,
+                    };
+
+                    if (newStatus === 2) {
+                        updatedDrip.last = currentTimestamp;
+                        updatedDrip.count = drip[dripName].count + 1;
+                    }
+
                     return {
                         ...drip,
-                        [dripName]: {
-                            ...drip[dripName],
-                            status: newStatus
-                        }
+                        [dripName]: updatedDrip,
                     };
                 } else {
                     return drip;
                 }
-            }))
-        }
+            });
+        });
+    };
 
-        return (
-        <DripContext.Provider value={{ drips, addDrip, toggleDripStatus }}>
+    return (
+        <DripContext.Provider value={{ drips, addDrip, toggleDrip }}>
             {children}
         </DripContext.Provider>
     );
