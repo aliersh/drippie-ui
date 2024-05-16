@@ -37,8 +37,28 @@ const DripProvider = ({ children }) => {
         });
     };
 
+    const archiveDrip = (dripName) => {
+        setDrips((prevDrips) => {
+            return prevDrips.map((drip) => {
+                if (Object.keys(drip)[0] === dripName) {
+                    return {
+                        ...drip,
+                        [dripName]: {
+                            ...drip[dripName],
+                            status: 3,
+                        },
+                    };
+                } else {
+                    return drip;
+                }
+            });
+        });
+    }
+
+    const activeDrips = drips.filter((drip) => drip[Object.keys(drip)[0]].status !== 3);
+
     return (
-        <DripContext.Provider value={{ drips, addDrip, toggleDrip }}>
+        <DripContext.Provider value={{ drips: activeDrips, addDrip, toggleDrip, archiveDrip }}>
             {children}
         </DripContext.Provider>
     );
