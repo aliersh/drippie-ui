@@ -15,9 +15,13 @@ import { TrashIcon, EyeIcon } from "@heroicons/react/16/solid";
 import DripItem from "./DripItem";
 
 const DripList = () => {
+    // Using the custom useDrip hook to access drips, toggleDrip and archiveDrip functions
     const { drips, toggleDrip, archiveDrip } = useDrip();
+
+    // State to manage visibility of details for each drip
     const [detailsVisible, setDetailsVisible] = useState({});
 
+    // Function to toggle the visibility of details for a specific drip
     const toggleDetails = (dripName) => {
         setDetailsVisible((prev) => ({
             ...prev,
