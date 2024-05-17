@@ -109,7 +109,7 @@ const DripList = () => {
                             </TableBody>
                         </Table>
                         {isDetailsVisible && (
-                            <div className="mt-4 p-4 z-0 flex flex-col relative justify-between gap-4 bg-content1 overflow-auto rounded-large shadow-small w-full">
+                            <div className="mt-4">
                                 <DripItem drip={drip[dripName]} />
                             </div>
                         )}
