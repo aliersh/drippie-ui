@@ -75,9 +75,9 @@ const DripList = () => {
                                     </TableCell>
                                     <TableCell className="w-1/6 items-center">
                                         {isSelected ? (
-                                            <Chip color="success">Active</Chip>
+                                            <Chip color="success" className="capitalize" size="sm" variant="flat">Active</Chip>
                                         ) : (
-                                            <Chip color="warning">
+                                            <Chip color="warning" className="capitalize" size="sm" variant="flat">
                                                 Inactive
                                             </Chip>
                                         )}
