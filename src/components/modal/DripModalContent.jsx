@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import DripInput from "./DripInput";
 
+// State to manage the details of the new drip being created
 const DripModalContent = ({ isOpen, onOpenChange }) => {
     const [dripDetails  , setDripDetails] = useState({
         dripName: "",
@@ -23,8 +24,10 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
         value: "",
     });
 
+    // Fetch the addDrip function from the useDrip context
     const { addDrip } = useDrip();
 
+    // Handle changes in form inputs and update state
     const handleChange = (event) => {
         const { name, value } = event.target;
         setDripDetails((prevDetails) => ({
@@ -32,7 +35,7 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
             [name]: name === "interval" || name === "value" ? Number(value) : value,
         }));
     }
-
+    // Handle form submission, create the drip object, add it, reset form, and close modal
     const handleSubmit = (event) => {
         event.preventDefault();
         const dripObject = {
@@ -58,7 +61,6 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
 
         addDrip(dripObject);
 
-        // Clear the form
         setDripDetails({
             dripName: "",
             interval: "",
@@ -69,10 +71,10 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
             value: "",
         });
 
-        //Close the modal
         onOpenChange(false);
     };
 
+    // Helper function to render input fields
     const renderDripInput = (label, name, type) => {
         return (
             <DripInput
