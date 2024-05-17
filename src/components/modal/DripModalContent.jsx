@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { useDrip } from "../context/useDrip";
+import { useForm } from "react-hook-form";
+import { isAddress, isHex } from "viem";
 import PropTypes from "prop-types";
 import {
     Modal,
@@ -12,47 +13,33 @@ import {
 } from "@nextui-org/react";
 import DripInput from "./DripInput";
 
-// State to manage the details of the new drip being created
 const DripModalContent = ({ isOpen, onOpenChange }) => {
-    const [dripDetails  , setDripDetails] = useState({
-        dripName: "",
-        interval: "",
-        dripcheckAddress: "",
-        dripcheckParameters: "",
-        target: "",
-        data: "",
-        value: "",
-    });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm();
 
     // Fetch the addDrip function from the useDrip context
     const { addDrip } = useDrip();
 
-    // Handle changes in form inputs and update state
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setDripDetails((prevDetails) => ({
-            ...prevDetails,
-            [name]: name === "interval" || name === "value" ? Number(value) : value,
-        }));
-    }
-    // Handle form submission, create the drip object, add it, reset form, and close modal
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const onSubmit = (data) => {
         const dripObject = {
-            [dripDetails.dripName]: {
+            [data.dripName]: {
                 status: 1,
                 last: 0,
                 count: 0,
                 config: {
                     reentrant: false,
-                    interval: dripDetails.interval,
-                    dripcheck: dripDetails.dripcheckAddress,
-                    checkparams: dripDetails.dripcheckParameters,
+                    interval: Number(data.interval),
+                    dripcheck: data.dripcheckAddress,
+                    checkparams: data.dripcheckParameters,
                     actions: [
                         {
-                            target: dripDetails.target,
-                            data: dripDetails.data,
-                            value: dripDetails.value,
+                            target: data.target,
+                            data: data.data,
+                            value: Number(data.value),
                         },
                     ],
                 },
@@ -60,70 +47,79 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
         };
 
         addDrip(dripObject);
-
-        setDripDetails({
-            dripName: "",
-            interval: "",
-            dripcheckAddress: "",
-            dripcheckParameters: "",
-            target: "",
-            data: "",
-            value: "",
-        });
-
+        reset();
         onOpenChange(false);
     };
 
     // Helper function to render input fields
-    const renderDripInput = (label, name, type) => {
+    const renderDripInput = (label, name, type, validation) => {
         return (
             <DripInput
                 type={type}
                 label={label}
-                name={name}
-                value={dripDetails[name].toString()}
-                onChange={handleChange}
+                error={errors[name]}
+                {...register(name, validation)}
             />
         );
-    }
+    };
 
     return (
-        <Modal
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement="top-center"
-        >
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
             <ModalContent>
                 {(onClose) => (
-                    <form onSubmit={handleSubmit}>
-                        <ModalHeader className="flex flex-col gap-1">
-                            Create New Drip
-                        </ModalHeader>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <ModalHeader className="flex flex-col gap-1">Create New Drip</ModalHeader>
                         <ModalBody>
-                            {renderDripInput("Drip Name", "dripName", "text")}
+                            {renderDripInput("Drip Name", "dripName", "text", {
+                                required: "Drip name is required",
+                            })}
                             <Divider orientation="horizontal" />
 
-                            <h4 className="text-medium font-medium">
-                                Drip Parameters
-                            </h4>
-                            {renderDripInput("Interval", "interval", "number")}
-                            {renderDripInput("Dripcheck Address", "dripcheckAddress", "text")}
-                            {renderDripInput("Dripcheck Parameters", "dripcheckParameters", "text")}
+                            <h4 className="text-medium font-medium">Drip Parameters</h4>
+                            {renderDripInput("Interval", "interval", "number", {
+                                required: "Interval is required",
+                            })}
+                            {renderDripInput("Dripcheck Address", "dripcheckAddress", "text", {
+                                required: "Dripcheck address is required",
+                                validate: (value) => {
+                                    const isValid = isAddress(value);
+                                    console.log('Dripcheck Address validation:', value, isValid);
+                                    return isValid || "Invalid address";
+                                },
+                            })}
+                            {renderDripInput("Dripcheck Parameters", "dripcheckParameters", "text", {
+                                required: "Dripcheck parameters are required",
+                                validate: (value) => {
+                                    const isValid = isHex(value, { strict: true });
+                                    console.log('Dripcheck Parameters validation:', value, isValid);
+                                    return isValid || "Invalid hex";
+                                },
+                            })}
                             <Divider orientation="horizontal" />
 
-                            <h4 className="text-medium font-medium">
-                                Drip Actions
-                            </h4>
-                            {renderDripInput("Target", "target", "text")}
-                            {renderDripInput("Data", "data", "text")}
-                            {renderDripInput("Value", "value", "number")}
+                            <h4 className="text-medium font-medium">Drip Actions</h4>
+                            {renderDripInput("Target", "target", "text", {
+                                required: "Target is required",
+                                validate: (value) => {
+                                    const isValid = isAddress(value);
+                                    console.log('Target validation:', value, isValid);
+                                    return isValid || "Invalid target";
+                                },
+                            })}
+                            {renderDripInput("Data", "data", "text", {
+                                required: "Data is required",
+                                validate: (value) => {
+                                    const isValid = isHex(value, { strict: true });
+                                    console.log('Data validation:', value, isValid);
+                                    return isValid || "Invalid hex";
+                                },
+                            })}
+                            {renderDripInput("Value", "value", "number", {
+                                required: "Value is required",
+                            })}
                         </ModalBody>
                         <ModalFooter>
-                            <Button
-                                color="danger"
-                                variant="flat"
-                                onPress={onClose}
-                            >
+                            <Button color="danger" variant="flat" onPress={onClose}>
                                 Cancel
                             </Button>
                             <Button type="submit" color="primary">
