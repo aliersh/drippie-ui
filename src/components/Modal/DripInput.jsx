@@ -7,7 +7,7 @@ const DripInput = ({ type, label, value, onChange }) => {
             type={type}
             label={label}
             size="sm"
-            autofocus={label === "Drip Name"}
+            autoFocus={label === "Drip Name"}
             value={value}
             onChange={onChange}
         />
