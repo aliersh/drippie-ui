@@ -12,7 +12,7 @@ import {
 import { Switch } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { TrashIcon, EyeIcon } from "@heroicons/react/16/solid";
-import DripItem from "../modal/DripItem";
+import DripItem from "./DripItem";
 
 const DripList = () => {
     const { drips, toggleDrip, archiveDrip } = useDrip();

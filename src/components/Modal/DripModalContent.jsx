@@ -13,33 +13,43 @@ import {
 import DripInput from "./DripInput";
 
 const DripModalContent = ({ isOpen, onOpenChange }) => {
-    const [dripName, setDripName] = useState("");
-    const [interval, setInterval] = useState("");
-    const [dripcheckAddress, setDripcheckAddress] = useState("");
-    const [dripcheckParameters, setDripcheckParameters] = useState("");
-    const [target, setTarget] = useState("");
-    const [data, setData] = useState("");
-    const [value, setValue] = useState("");
+    const [dripDetails  , setDripDetails] = useState({
+        dripName: "",
+        interval: "",
+        dripcheckAddress: "",
+        dripcheckParameters: "",
+        target: "",
+        data: "",
+        value: "",
+    });
 
     const { addDrip } = useDrip();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setDripDetails((prevDetails) => ({
+            ...prevDetails,
+            [name]: name === "interval" || name === "value" ? Number(value) : value,
+        }));
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const dripObject = {
-            [dripName]: {
+            [dripDetails.dripName]: {
                 status: 1,
                 last: 0,
                 count: 0,
                 config: {
                     reentrant: false,
-                    interval: interval,
-                    dripcheck: dripcheckAddress,
-                    checkparams: dripcheckParameters,
+                    interval: dripDetails.interval,
+                    dripcheck: dripDetails.dripcheckAddress,
+                    checkparams: dripDetails.dripcheckParameters,
                     actions: [
                         {
-                            target: target,
-                            data: data,
-                            value: value,
+                            target: dripDetails.target,
+                            data: dripDetails.data,
+                            value: dripDetails.value,
                         },
                     ],
                 },
@@ -49,17 +59,31 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
         addDrip(dripObject);
 
         // Clear the form
-        setDripName("");
-        setInterval("");
-        setDripcheckAddress("");
-        setDripcheckParameters("");
-        setTarget("");
-        setData("");
-        setValue("");
+        setDripDetails({
+            dripName: "",
+            interval: "",
+            dripcheckAddress: "",
+            dripcheckParameters: "",
+            target: "",
+            data: "",
+            value: "",
+        });
 
         //Close the modal
         onOpenChange(false);
     };
+
+    const renderDripInput = (label, name, type) => {
+        return (
+            <DripInput
+                type={type}
+                label={label}
+                name={name}
+                value={dripDetails[name].toString()}
+                onChange={handleChange}
+            />
+        );
+    }
 
     return (
         <Modal
@@ -74,72 +98,23 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
                             Create New Drip
                         </ModalHeader>
                         <ModalBody>
-                            <DripInput
-                                type="text"
-                                label="Drip Name"
-                                value={dripName}
-                                onChange={(event) =>
-                                    setDripName(event.target.value)
-                                }
-                            />
+                            {renderDripInput("Drip Name", "dripName", "text")}
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Parameters
                             </h4>
-                            <DripInput
-                                type="number"
-                                label="Interval"
-                                value={interval.toString()}
-                                onChange={(event) =>
-                                    setInterval(Number(event.target.value))
-                                }
-                            />
-                            <DripInput
-                                type="text"
-                                label="Dripcheck Address"
-                                value={dripcheckAddress}
-                                onChange={(event) =>
-                                    setDripcheckAddress(event.target.value)
-                                }
-                            />
-                            <DripInput
-                                type="text"
-                                label="Dripcheck Parameters"
-                                value={dripcheckParameters}
-                                onChange={(event) =>
-                                    setDripcheckParameters(event.target.value)
-                                }
-                            />
+                            {renderDripInput("Interval", "interval", "number")}
+                            {renderDripInput("Dripcheck Address", "dripcheckAddress", "text")}
+                            {renderDripInput("Dripcheck Parameters", "dripcheckParameters", "text")}
                             <Divider orientation="horizontal" />
 
                             <h4 className="text-medium font-medium">
                                 Drip Actions
                             </h4>
-                            <DripInput
-                                type="text"
-                                label="Target"
-                                value={target}
-                                onChange={(event) =>
-                                    setTarget(event.target.value)
-                                }
-                            />
-                            <DripInput
-                                type="text"
-                                label="Data"
-                                value={data}
-                                onChange={(event) =>
-                                    setData(event.target.value)
-                                }
-                            />
-                            <DripInput
-                                type="number"
-                                label="Value"
-                                value={value.toString()}
-                                onChange={(event) =>
-                                    setValue(Number(event.target.value))
-                                }
-                            />
+                            {renderDripInput("Target", "target", "text")}
+                            {renderDripInput("Data", "data", "text")}
+                            {renderDripInput("Value", "value", "number")}
                         </ModalBody>
                         <ModalFooter>
                             <Button

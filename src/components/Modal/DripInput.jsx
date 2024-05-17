@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Input } from "@nextui-org/react";
 
-const DripInput = ({ type, label, value, onChange }) => {
+const DripInput = ({ type, label, value, onChange, name }) => {
     return (
         <Input
             type={type}
@@ -10,6 +10,7 @@ const DripInput = ({ type, label, value, onChange }) => {
             autoFocus={label === "Drip Name"}
             value={value}
             onChange={onChange}
+            name={name}
         />
     );
 };
@@ -18,7 +19,8 @@ DripInput.propTypes = {
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 export default DripInput;
