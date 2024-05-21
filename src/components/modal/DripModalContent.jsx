@@ -13,7 +13,10 @@ import {
 } from "@nextui-org/react";
 import DripInput from "./DripInput";
 
+// DripModalContent component: displays a modal for creating a new drip
 const DripModalContent = ({ isOpen, onOpenChange }) => {
+
+    // Initialize form handling using react-hook-form
     const {
         register,
         handleSubmit,
@@ -24,6 +27,7 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
     // Fetch the addDrip function from the useDrip context
     const { addDrip } = useDrip();
 
+    // Handle form submission
     const onSubmit = (data) => {
         const dripObject = {
             [data.dripName]: {
@@ -46,6 +50,7 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
             },
         };
 
+        // Add the new drip using the addDrip function from context. and reset the form
         addDrip(dripObject);
         reset();
         onOpenChange(false);
