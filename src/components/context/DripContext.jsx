@@ -48,12 +48,13 @@ const DripProvider = ({ children }) => {
         setDrips((prevDrips) => {
             return prevDrips.map((drip) => {
                 if (Object.keys(drip)[0] === dripName) {
+                    const updatedDrip = {
+                        ...drip[dripName],
+                        status: 3,
+                    };
                     return {
                         ...drip,
-                        [dripName]: {
-                            ...drip[dripName],
-                            status: 3,
-                        },
+                        [dripName]: updatedDrip,
                     };
                 } else {
                     return drip;
