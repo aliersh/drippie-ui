@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 export const DripContext = createContext();
 
 const DripProvider = ({ children }) => {
-
     // State to manage the list of drips
     const [drips, setDrips] = useState([]);
 
@@ -61,14 +60,18 @@ const DripProvider = ({ children }) => {
                 }
             });
         });
-    }
+    };
 
     // Filter active drips (status is not 3)
-    const activeDrips = drips.filter((drip) => drip[Object.keys(drip)[0]].status !== 3);
+    const activeDrips = drips.filter(
+        (drip) => drip[Object.keys(drip)[0]].status !== 3
+    );
 
     // Providing the drips and actions to the context
     return (
-        <DripContext.Provider value={{ drips: activeDrips, addDrip, toggleDrip, archiveDrip }}>
+        <DripContext.Provider
+            value={{ drips: activeDrips, addDrip, toggleDrip, archiveDrip }}
+        >
             {children}
         </DripContext.Provider>
     );
