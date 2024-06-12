@@ -1,5 +1,5 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
-import CreateDripModal from "../modal/CreateDripModal";
+import NewDripModal from "../modal/NewDripModal";
 
 const DripNavbar = () => {
     return (
@@ -9,7 +9,7 @@ const DripNavbar = () => {
             </NavbarBrand>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <CreateDripModal />
+                    <NewDripModal />
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

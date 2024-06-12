@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Button } from "@nextui-org/react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
-const CreateDripButton = ({ onOpen }) => {
+const NewDripButton = ({ onOpen }) => {
     return (
         <Button
             onPress={onOpen}
@@ -14,8 +14,8 @@ const CreateDripButton = ({ onOpen }) => {
     );
 };
 
-CreateDripButton.propTypes = {
+NewDripButton.propTypes = {
     onOpen: PropTypes.func.isRequired,
 };
 
-export default CreateDripButton;
+export default NewDripButton;
