@@ -3,7 +3,7 @@ import { sepolia } from "wagmi/chains";
 
 export const config = createConfig({
     chains: [sepolia],
-    transport: {
+    transports: {
         [sepolia.id]: http(),
     },
 });
