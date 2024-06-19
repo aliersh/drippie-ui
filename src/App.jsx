@@ -22,8 +22,6 @@ const App = () => {
                 </DripProvider>
             </QueryClientProvider>
         </WagmiProvider>
-
-        
     );
 };
 
