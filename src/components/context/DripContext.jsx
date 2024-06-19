@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useReadContract } from "wagmi";
+import abi from "../../config/abi";
 import PropTypes from "prop-types";
 
 export const DripContext = createContext();
@@ -6,6 +8,26 @@ export const DripContext = createContext();
 const DripProvider = ({ children }) => {
     // State to manage the list of drips
     const [drips, setDrips] = useState([]);
+
+    //Fetch drip count
+    const {
+        data: dripCount,
+        error,
+    } = useReadContract({
+        abi,
+        address: "0xa0fF2a54AdC3fB33c44a141E67d194CF249258cb",
+        functionName: "getDripCount",
+    });
+
+    useEffect(() => {
+        if (dripCount) {
+            const count = Number(dripCount);
+            console.log(count);
+        }
+        if (error) {
+            console.error(error);
+        }
+    }, [dripCount, error]);
 
     // Function to add a new drip to the list
     const addDrip = (drip) => {
