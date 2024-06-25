@@ -10,19 +10,49 @@ const DripProvider = ({ children }) => {
     const [drips, setDrips] = useState([]);
 
     //Fetch drip count
-    const {
-        data: dripCount,
-        error,
-    } = useReadContract({
+    // Helper function to initialize a drip object
+    const initializeDrip = (index) => ({
+        [`drip${index}`]: {
+            status: 1,
+            last: 0,
+            count: 0,
+            config: {
+                reentrant: false,
+                interval: 0,
+                dripcheck: "",
+                checkparams: "",
+                actions: [
+                    {
+                        target: "",
+                        data: "",
+                        value: 0,
+                    },
+                ],
+            },
+        },
+    });
+
+    const { data: dripCount, error } = useReadContract({
         abi,
         address: "0xa0fF2a54AdC3fB33c44a141E67d194CF249258cb",
         functionName: "getDripCount",
     });
 
+    //Function to create empty drips based on dripCount
     useEffect(() => {
+        const createEmptyDrips = (count) => {
+            setDrips((prevDrips) => {
+                const newEmptyDrips = Array.from({ length: count }, (_, index) =>
+                    initializeDrip(prevDrips.length + index)
+                );
+                return [...prevDrips, ...newEmptyDrips];
+            });
+        };
+
         if (dripCount) {
             const count = Number(dripCount);
             console.log(count);
+            createEmptyDrips(count);
         }
         if (error) {
             console.error(error);
