@@ -32,7 +32,7 @@ const DripProvider = ({ children }) => {
         },
     });
 
-    const { data: dripCount, error } = useReadContract({
+    const { data: dripCount, error: dripCountError } = useReadContract({
         abi,
         address: "0xa0fF2a54AdC3fB33c44a141E67d194CF249258cb",
         functionName: "getDripCount",
@@ -54,10 +54,10 @@ const DripProvider = ({ children }) => {
             console.log(count);
             createEmptyDrips(count);
         }
-        if (error) {
-            console.error(error);
+        if (dripCountError) {
+            console.error(dripCountError);
         }
-    }, [dripCount, error]);
+    }, [dripCount, dripCountError]);
 
     // Function to add a new drip to the list
     const addDrip = (drip) => {
