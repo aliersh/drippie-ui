@@ -1,6 +1,4 @@
-import { createContext, useState, useEffect } from "react";
-import { useReadContract } from "wagmi";
-import abi from "../../config/abi";
+import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 
 export const DripContext = createContext();
@@ -8,56 +6,6 @@ export const DripContext = createContext();
 const DripProvider = ({ children }) => {
     // State to manage the list of drips
     const [drips, setDrips] = useState([]);
-
-    //Fetch drip count
-    // Helper function to initialize a drip object
-    const initializeDrip = (index) => ({
-        [`drip${index}`]: {
-            status: 1,
-            last: 0,
-            count: 0,
-            config: {
-                reentrant: false,
-                interval: 0,
-                dripcheck: "",
-                checkparams: "",
-                actions: [
-                    {
-                        target: "",
-                        data: "",
-                        value: 0,
-                    },
-                ],
-            },
-        },
-    });
-
-    const { data: dripCount, error: dripCountError } = useReadContract({
-        abi,
-        address: "0xa0fF2a54AdC3fB33c44a141E67d194CF249258cb",
-        functionName: "getDripCount",
-    });
-
-    //Function to create empty drips based on dripCount
-    useEffect(() => {
-        const createEmptyDrips = (count) => {
-            setDrips((prevDrips) => {
-                const newEmptyDrips = Array.from({ length: count }, (_, index) =>
-                    initializeDrip(prevDrips.length + index)
-                );
-                return [...prevDrips, ...newEmptyDrips];
-            });
-        };
-
-        if (dripCount) {
-            const count = Number(dripCount);
-            console.log(count);
-            createEmptyDrips(count);
-        }
-        if (dripCountError) {
-            console.error(dripCountError);
-        }
-    }, [dripCount, dripCountError]);
 
     // Function to add a new drip to the list
     const addDrip = (drip) => {
