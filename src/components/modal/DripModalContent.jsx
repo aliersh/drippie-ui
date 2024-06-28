@@ -15,7 +15,6 @@ import DripInput from "./DripInput";
 
 // DripModalContent component: displays a modal for creating a new drip
 const DripModalContent = ({ isOpen, onOpenChange }) => {
-
     // Initialize form handling using react-hook-form
     const {
         register,
@@ -69,53 +68,94 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
     };
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+        <Modal
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            placement="top-center"
+        >
             <ModalContent>
                 {(onClose) => (
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <ModalHeader className="flex flex-col gap-1">Create New Drip</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">
+                            Create New Drip
+                        </ModalHeader>
                         <ModalBody>
                             {renderDripInput("Drip Name", "dripName", "text", {
                                 required: "Drip name is required",
                             })}
                             <Divider orientation="horizontal" />
 
-                            <h4 className="text-medium font-medium">Drip Parameters</h4>
+                            <h4 className="text-medium font-medium">
+                                Drip Parameters
+                            </h4>
                             {renderDripInput("Interval", "interval", "number", {
                                 required: "Interval is required",
                             })}
-                            {renderDripInput("Dripcheck Address", "dripcheckAddress", "text", {
-                                required: "Dripcheck address is required",
-                                validate: (value) => {
-                                    const isValid = isAddress(value);
-                                    console.log('Dripcheck Address validation:', value, isValid);
-                                    return isValid || "Invalid address";
-                                },
-                            })}
-                            {renderDripInput("Dripcheck Parameters", "dripcheckParameters", "text", {
-                                required: "Dripcheck parameters are required",
-                                validate: (value) => {
-                                    const isValid = isHex(value, { strict: true });
-                                    console.log('Dripcheck Parameters validation:', value, isValid);
-                                    return isValid || "Invalid hex";
-                                },
-                            })}
+                            {renderDripInput(
+                                "Dripcheck Address",
+                                "dripcheckAddress",
+                                "text",
+                                {
+                                    required: "Dripcheck address is required",
+                                    validate: (value) => {
+                                        const isValid = isAddress(value);
+                                        console.log(
+                                            "Dripcheck Address validation:",
+                                            value,
+                                            isValid
+                                        );
+                                        return isValid || "Invalid address";
+                                    },
+                                }
+                            )}
+                            {renderDripInput(
+                                "Dripcheck Parameters",
+                                "dripcheckParameters",
+                                "text",
+                                {
+                                    required:
+                                        "Dripcheck parameters are required",
+                                    validate: (value) => {
+                                        const isValid = isHex(value, {
+                                            strict: true,
+                                        });
+                                        console.log(
+                                            "Dripcheck Parameters validation:",
+                                            value,
+                                            isValid
+                                        );
+                                        return isValid || "Invalid hex";
+                                    },
+                                }
+                            )}
                             <Divider orientation="horizontal" />
 
-                            <h4 className="text-medium font-medium">Drip Actions</h4>
+                            <h4 className="text-medium font-medium">
+                                Drip Actions
+                            </h4>
                             {renderDripInput("Target", "target", "text", {
                                 required: "Target is required",
                                 validate: (value) => {
                                     const isValid = isAddress(value);
-                                    console.log('Target validation:', value, isValid);
+                                    console.log(
+                                        "Target validation:",
+                                        value,
+                                        isValid
+                                    );
                                     return isValid || "Invalid target";
                                 },
                             })}
                             {renderDripInput("Data", "data", "text", {
                                 required: "Data is required",
                                 validate: (value) => {
-                                    const isValid = isHex(value, { strict: true });
-                                    console.log('Data validation:', value, isValid);
+                                    const isValid = isHex(value, {
+                                        strict: true,
+                                    });
+                                    console.log(
+                                        "Data validation:",
+                                        value,
+                                        isValid
+                                    );
                                     return isValid || "Invalid hex";
                                 },
                             })}
@@ -124,7 +164,11 @@ const DripModalContent = ({ isOpen, onOpenChange }) => {
                             })}
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="danger" variant="flat" onPress={onClose}>
+                            <Button
+                                color="danger"
+                                variant="flat"
+                                onPress={onClose}
+                            >
                                 Cancel
                             </Button>
                             <Button type="submit" color="primary">

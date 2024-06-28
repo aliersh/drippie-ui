@@ -1,4 +1,9 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+} from "@nextui-org/react";
 import NewDripModal from "../modal/NewDripModal";
 
 const DripNavbar = () => {
@@ -13,7 +18,7 @@ const DripNavbar = () => {
                 </NavbarItem>
             </NavbarContent>
         </Navbar>
-    )
-}
+    );
+};
 
 export default DripNavbar;

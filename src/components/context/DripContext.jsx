@@ -6,15 +6,19 @@ export const DripContext = createContext();
 
 const DripProvider = ({ children }) => {
     // States to manage the list of drips
-    const {drips: fetchedDrips} = useFetchDrips();
+    const { drips: fetchedDrips } = useFetchDrips();
     const [drips, setDrips] = useState([]);
 
     // Fetch and update of external drips
     useEffect(() => {
         if (fetchedDrips) {
-            setDrips(Object.entries(fetchedDrips).map(([name, data]) => ({ [name]: data })));
+            setDrips(
+                Object.entries(fetchedDrips).map(([name, data]) => ({
+                    [name]: data,
+                }))
+            );
         }
-    }, [fetchedDrips])
+    }, [fetchedDrips]);
 
     // Function to add a new drip to the list
     const addDrip = (drip) => {
@@ -40,9 +44,10 @@ const DripProvider = ({ children }) => {
                         const currentCount = drip[dripName].count;
 
                         // Check if currentCount is a BigInt and convert if necessary
-                        updatedDrip.count = typeof currentCount === "bigint"
-                            ? Number(currentCount) + 1
-                            : currentCount + 1;
+                        updatedDrip.count =
+                            typeof currentCount === "bigint"
+                                ? Number(currentCount) + 1
+                                : currentCount + 1;
                     }
 
                     return {
