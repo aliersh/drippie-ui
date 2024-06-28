@@ -3,7 +3,11 @@ import { Card,CardBody } from "@nextui-org/react";
 const dripItem = ({ drip }) => {
     const { status, last, count, config } = drip;
     const { reentrant, interval, dripcheck, checkparams, actions } = config;
-    const { target, data, value } = actions[0];
+    
+    const target = actions && actions[0] ? actions[0].target : "N/A";
+    const data = actions && actions[0] ? actions[0].data : "N/A";
+    const value = actions && actions[0] ? actions[0].value : "N/A";
+
 
     return (
         <Card>
