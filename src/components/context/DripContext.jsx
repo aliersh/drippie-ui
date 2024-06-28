@@ -1,11 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import useFetchDrips from "./useFetchDrips";
 import PropTypes from "prop-types";
 
 export const DripContext = createContext();
 
 const DripProvider = ({ children }) => {
-    // State to manage the list of drips
+    // States to manage the list of drips
+    const {drips: fetchedDrips} = useFetchDrips();
     const [drips, setDrips] = useState([]);
+
+    // Fetch and update of external drips
+    useEffect(() => {
+        if (fetchedDrips) {
+            setDrips(Object.entries(fetchedDrips).map(([name, data]) => ({ [name]: data })));
+        }
+    }, [fetchedDrips])
 
     // Function to add a new drip to the list
     const addDrip = (drip) => {
