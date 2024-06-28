@@ -37,7 +37,12 @@ const DripProvider = ({ children }) => {
                     // If the new status is active, update the last execution timestamp and increment the count
                     if (newStatus === 2) {
                         updatedDrip.last = currentTimestamp;
-                        updatedDrip.count = drip[dripName].count + 1;
+                        const currentCount = drip[dripName].count;
+
+                        // Check if currentCount is a BigInt and convert if necessary
+                        updatedDrip.count = typeof currentCount === "bigint"
+                            ? Number(currentCount) + 1
+                            : currentCount + 1;
                     }
 
                     return {
